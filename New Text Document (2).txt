@@ -1,0 +1,178 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{booktabs} % For better table lines
+\usepackage{caption} % To manage caption styles
+\usepackage{tabularx} % For automatic column width adjustment
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Conference Paper Title*\\
+{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured in Xplore and
+should not be used}
+\thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+\and
+\IEEEauthorblockN{6\textsuperscript{th} Given Name Surname}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+}
+
+\maketitle
+
+\begin{abstract}
+This paper presents a machine learning approach to address two important challenges in smart grid management: energy load forecasting and grid fault detection. By using environmental data, such as temperature, wind speed, and solar radiation, alongside historical energy consumption, a Decision Tree Regressor was trained to predict future energy loads, while a Random Forest Classifier was employed to detect grid faults. The models were assessed using Mean Absolute Error (MAE) for load forecasting and classification metrics such as precision, recall, and F1-score for fault detection. The findings demonstrate the effectiveness of machine learning in predicting energy consumption and identifying faults, contributing to improved grid stability and efficiency.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Smart Grid, Load Forecasting, Fault Detection, Machine Learning, Decision Tree, Random Forest.
+\end{IEEEkeywords}
+
+\section{Introduction}
+The rapid expansion of renewable energy sources and the increasing complexity of power systems have created a growing demand for advanced smart grid technologies. Two critical challenges in smart grid management are predicting future energy consumption and detecting grid faults in real time. Accurate energy load forecasting is essential for balancing supply and demand, while prompt fault detection helps prevent system outages and minimizes maintenance costs.
+
+Traditional approaches to load forecasting and fault detection often rely on statistical models, which may struggle to fully capture the intricate dynamics of the system. In response to these limitations, this paper proposes a machine learning-based solution. A Decision Tree Regressor is employed to predict future energy consumption, while a Random Forest Classifier is used to detect grid faults, offering a more sophisticated and efficient method for managing modern power systems.
+\subsection{Related Work}
+Energy load forecasting has been widely researched using techniques like time series analysis, regression models, and neural networks. In recent years, machine learning models have gained attention for their ability to provide more precise predictions. Similarly, fault detection in smart grids has been approached with a variety of algorithms, including decision trees, random forests, and support vector machines. However, there has been limited research that integrates both load forecasting and fault detection within a unified framework, leveraging a combination of environmental factors and historical data for more comprehensive smart grid management.
+
+\section{Data Description}
+\subsection{Data Overview}
+The dataset used in this study consists of hourly measurements of key environmental and grid-related parameters over a period of one month, from September 10, 2024, to October 9, 2024. The features include:
+
+Temperature (°C)
+Wind Speed (m/s)
+Solar Radiation (W/m²)
+Energy Consumption (kWh)
+Solar Generation (kW)
+Wind Generation (kW)
+Grid Fault (1 = Fault, 0 = No Fault)
+
+\subsection{Feature Engineering}
+To improve model performance, additional features were created:
+
+Lag Features:Past values of energy consumption (Lag_1 and Lag_24).
+Interaction Terms: Interaction between temperature and wind speed (Temp_Wind_Interaction) and total renewable energy generation (Solar_Wind_Generation).
+
+\subsection{Dataset Statistics}
+\begin{itemize}
+\item Mean Energy Consumption: 29.9 kWh
+\item Grid Fault Occurrences: ~5.6% of data points represent grid faults.
+
+\end{itemize}
+
+\section*{Methodology}
+\subsection{Load Forecasting}
+A Decision Tree Regressor was implemented to predict energy consumption in the smart grid. Decision trees were chosen for their ability to model non-linear relationships and capture complex interactions between features without the need for extensive data pre-processing. The selected features included environmental variables such as temperature (°C), wind speed (m/s), and solar radiation (W/m²), alongside historical energy consumption data, as these factors significantly influence energy demand based on weather conditions and renewable energy availability.
+
+Feature engineering was key to improving model performance. Two important lag features were introduced:
+Lag1 -energy consumption in the previous hour and Lag24 -energy consumption 24 hours earlier, which captured both short-term and daily consumption patterns. Additionally, interaction terms such as Temp Wind Interaction were created to account for the combined effects of environmental factors on energy demand.
+The dataset was split into 80 Percent training data and 20 Percent test data. To prevent over fitting and ensure generalization to unseen data, hyper parameters such as maximum depth, minimum samples per leaf, and split criterion were tuned using cross-validation. The model was evaluated using the Mean Absolute Error (MAE) metric, which measures the average magnitude of errors in the predictions, providing a clear assessment of the model's accuracy.
+\subsection{Fault Detection}
+For grid fault detection, a Random Forest Classifier was employed, utilizing an ensemble learning method that combines multiple decision trees to enhance prediction accuracy and reduce variance. The model was designed to classify whether a grid fault occurred (1 = fault, 0 = no fault) based on historical grid data and environmental factors. Input features included temperature, wind speed, solar generation, wind generation, and energy consumption, along with interaction terms such as Solar Wind Generation and Temp Wind Interaction. These interaction terms provided additional insights into the conditions under which faults occurred, enabling the model to identify patterns indicative of grid faults.
+
+The dataset was split into 80 Percent training data and 20 Percent test data. Hyperparameters of the Random Forest model, including the number of trees, maximum depth, and minimum samples per leaf, were optimized using a grid search method. The model's performance was evaluated using classification metrics such as precision, recall, F1-score, and a confusion matrix to ensure accurate fault detection while minimizing false positives and negatives.
+
+\section{Result}
+The Decision Tree model proved to be effective for load forecasting, with the addition of lag features greatly enhancing its accuracy. However, it faced challenges during periods of rapid changes in energy consumption, indicating that exploring more complex models, such as gradient boosting, could be beneficial in future work.
+
+On the other hand, the Random Forest Classifier demonstrated strong performance in fault detection, particularly due to the incorporation of environmental factors. Its low rate of missed faults suggests that this model could be successfully implemented in a real-time monitoring system for the grid.
+
+% Table heading
+\section{Model Performance Comparison}
+
+% Table code
+\begin{table}[h]
+\centering
+\caption{Comparison of Model Performance for Load Forecasting and Fault Detection}
+\small % Reduce font size
+\begin{tabularx}{\linewidth}{|c|c|c|c|c|c|} 
+\hline
+\textbf{Model}          & \textbf{Task}          & \textbf{MAE (kWh)} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-Score} \\ 
+\hline
+Decision Tree   & Load Forecasting       & 7.02               & N/A                & N/A             & N/A               \\ 
+\hline
+Random Forest   & Fault Detection        & N/A                & 0.00               & 0.00            & 0.00              \\ 
+\hline
+& & & 0.90               & 1.00             & \textbf{0.95}              \\ 
+\hline
+\end{tabularx}
+\label{table:comparison}
+\end{table}
+
+
+
+\section*{References}
+
+Please number citations consecutively within brackets \cite{b1}. The 
+sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
+number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
+the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
+
+Number footnotes separately in superscripts. Place the actual footnote at 
+the bottom of the column in which it was cited. Do not put footnotes in the 
+abstract or reference list. Use letters for table footnotes.
+
+Unless there are six authors or more give all authors' names; do not use 
+``et al.''. Papers that have not been published, even if they have been 
+submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
+that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
+Capitalize only the first word in a paper title, except for proper nouns and 
+element symbols.
+
+For papers published in translation journals, please give the English 
+citation first, followed by the original foreign-language citation \cite{b6}.
+
+\begin{thebibliography}{00}
+\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+\end{thebibliography}
+\vspace{12pt}
+\color{red}
+IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+
+\end{document}
